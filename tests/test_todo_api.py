@@ -7,7 +7,7 @@ BASE_URL = "http://localhost:8000/api/todos"
 @pytest.mark.parametrize("iteration", range(5))
 async def test_create_todo(iteration):
     async with httpx.AsyncClient() as client:
-        response = await client.post(f"{BASE_URL}/", json={"id": iteration + 1, "title": "Buy groceries", "completed": False})
+        response = await client.post(f"{BASE_URL}/", json={"title": "Buy groceries", "completed": False})
         assert response.status_code == 201
         assert response.json() == {
             "id": iteration + 1, 
@@ -39,7 +39,7 @@ async def test_get_todo_by_id(iteration):
 @pytest.mark.parametrize("iteration", range(5))
 async def test_update_todo(iteration):
     async with httpx.AsyncClient() as client:
-        response = await client.put(f"{BASE_URL}/{iteration + 1}", json={"id": iteration + 1, "title": "Buy groceries and cook dinner", "completed": True})
+        response = await client.put(f"{BASE_URL}/{iteration + 1}", json={"title": "Buy groceries and cook dinner", "completed": True})
         assert response.status_code == 200
         assert response.json() == {
             "id": iteration + 1,
@@ -69,13 +69,6 @@ async def test_create_todo_with_invalid_data():
         response = await client.post(f"{BASE_URL}/", json={"completed": False})
         assert response.status_code == 422
         assert "Field required" in response.json()["detail"][0]["msg"]
-
-@pytest.mark.asyncio
-async def test_create_todo_with_invalid_id():
-    async with httpx.AsyncClient() as client:
-        response = await client.post(f"{BASE_URL}/", json={"id": -8, "title": "Invalid todo", "completed": False})
-        assert response.status_code == 422
-        assert "Input should be greater than 0" in response.json()["detail"][0]["msg"]
 
 @pytest.mark.asyncio
 async def test_get_todo_with_invalid_id():
