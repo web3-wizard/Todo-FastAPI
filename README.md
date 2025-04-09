@@ -52,7 +52,7 @@ Before you begin, ensure you have the following installed:
 2. Create a virtual environment (optional but recommended):
 
     ```bash
-    python -m venv .venv
+    python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
     ```
 
@@ -66,9 +66,9 @@ Before you begin, ensure you have the following installed:
 
 To run the application, use the following command:
 
-    ```bash
-    fastapi dev main.py
-    ```
+```bash
+fastapi dev src/main.py
+```
 
 You can access the API at http://127.0.0.1:8000 and docs at http://127.0.0.1:8000/docs.
 
