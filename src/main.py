@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from src.routes import todos
 
 app = FastAPI()
 
-app.include_router(todos.router, prefix="/api", tags=["Todos"])
+app.include_router(todos.router, prefix="/api")
 
 @app.get("/api", tags=["Welcome"])
 def welcome():

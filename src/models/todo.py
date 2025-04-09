@@ -1,7 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator, conint
 
 class Todo(BaseModel):
-    id: int
+    id: conint(gt=0)
     title: str
-    description: str | None = None
     completed: bool = False
+
+    @validator('id')
+    def check_id_positive(cls, value):
+        if value <= 0:
+            raise ValueError('id must be a positive integer greater than zero')
+        return value
