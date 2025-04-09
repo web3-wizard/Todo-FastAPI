@@ -50,26 +50,42 @@ Before you begin, ensure you have the following installed:
    cd Todo-FastAPI
    ```
 
-2. Create a virtual environment (optional but recommended):
+   - **Using Docker Image**:
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+    2. Build the Docker image:
 
-3. Install the required packages:
-    
-    ```bash
-    pip install -r requirements.txt
-    ```
+        ```bash
+        docker build -t todo-app .
+        ```
+
+    3. Run the Docker container:
+
+        ```bash
+        docker run -p 8000:8000 --name todo_api todo-app
+        ```
+
+    - **Normal Installation**:
+
+    2. Create a virtual environment (optional but recommended):
+
+        ```bash
+        python -m venv venv
+        source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+        ```
+
+    3. Install the required packages:
+        
+        ```bash
+        pip install -r requirements.txt
+        ```
+
+    4. Run the application:
+
+        ```bash
+        fastapi dev src/main.py
+        ```
 
 ## Usage
-
-To run the application, use the following command:
-
-```bash
-fastapi dev src/main.py
-```
 
 You can access the API at http://127.0.0.1:8000 and docs at http://127.0.0.1:8000/docs.
 
