@@ -1,9 +1,14 @@
 from fastapi import FastAPI
-from src.routes import todos
+from src.routes import todos_route
+from src.DB.db_config import create_db_and_tables
 
 app = FastAPI()
 
-app.include_router(todos.router, prefix="/api")
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
+app.include_router(todos_route.router, prefix="/api")
 
 @app.get("/api", tags=["Welcome"])
 def welcome():
