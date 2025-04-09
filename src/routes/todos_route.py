@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from pydantic import conint
-from src.models.todo_model import Todo
+from src.models.todo_model import Todo, TodoDTO
 from src.repositories.todo_repository import TodoRepository
 from src.DB.db_config import get_session
 
@@ -28,12 +28,12 @@ def get_todo(todo_id: conint(gt=0), repo: TodoRepository = Depends(get_repositor
     return todo
 
 @router.post("/", status_code=201, response_model=Todo)
-def create_todo(todo: Todo, repo: TodoRepository = Depends(get_repository)) -> Todo:
-    new_todo = repo.create(todo)
+def create_todo(todo: TodoDTO, repo: TodoRepository = Depends(get_repository)) -> Todo:
+    new_todo = repo.create(Todo.from_orm(todo))
     return new_todo
 
 @router.put("/{todo_id}", response_model=Todo)
-def update_todo(todo_id: conint(gt=0), updated_todo: Todo, repo: TodoRepository = Depends(get_repository)) -> Todo:
+def update_todo(todo_id: conint(gt=0), updated_todo: TodoDTO, repo: TodoRepository = Depends(get_repository)) -> Todo:
     existing_todo = repo.get(todo_id=todo_id)
     if existing_todo is None:
         raise HTTPException(status_code=404, detail=f"Todo with id: {todo_id} not found")
