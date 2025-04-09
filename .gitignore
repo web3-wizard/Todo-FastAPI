@@ -3,3 +3,8 @@
 .pytest_cache
 .vscode
 .env
+
+*.db
+*.db-*
+**/.db
+**/.db-*
