@@ -9,6 +9,7 @@ A simple To-do application built with FastAPI to showcase the capabilities of th
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Tests](#tests)
 
 ## Features
 
@@ -72,3 +73,17 @@ fastapi dev src/main.py
 
 You can access the API at http://127.0.0.1:8000 and docs at http://127.0.0.1:8000/docs.
 
+
+## Tests
+
+To run the tests, first install the required packages:
+
+```bash
+pip install -r test_requirements.txt
+```
+
+Then, execute the following command:
+
+```bash
+pytest tests/test_todo_api.py
+```
